@@ -181,6 +181,8 @@
 		21804BF416FB0EB900C453AE /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21804BF316FB0EB900C453AE /* GLES-Render.mm */; };
 		21804BF716FB0EB900C453AE /* PhysicsSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21804BF616FB0EB900C453AE /* PhysicsSprite.mm */; };
 		21804BF916FB0EB900C453AE /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 21804BF816FB0EB900C453AE /* blocks.png */; };
+		21804C0316FB20F500C453AE /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 21804C0216FB20F500C453AE /* MainMenuScene.m */; };
+		21804C0616FB214A00C453AE /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 21804C0516FB214A00C453AE /* MainMenuLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -545,6 +547,10 @@
 		21804BF516FB0EB900C453AE /* PhysicsSprite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsSprite.h; sourceTree = "<group>"; };
 		21804BF616FB0EB900C453AE /* PhysicsSprite.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PhysicsSprite.mm; sourceTree = "<group>"; };
 		21804BF816FB0EB900C453AE /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
+		21804C0116FB20F500C453AE /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
+		21804C0216FB20F500C453AE /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
+		21804C0416FB214A00C453AE /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuLayer.h; sourceTree = "<group>"; };
+		21804C0516FB214A00C453AE /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -605,6 +611,8 @@
 			children = (
 				21804BE916FB0EB900C453AE /* AppDelegate.h */,
 				21804BEA16FB0EB900C453AE /* AppDelegate.mm */,
+				21804BFF16FB20C500C453AE /* Intro */,
+				21804C0016FB20C500C453AE /* MainMenu */,
 				21804BEC16FB0EB900C453AE /* HelloWorldLayer.h */,
 				21804BED16FB0EB900C453AE /* HelloWorldLayer.mm */,
 				21804BEF16FB0EB900C453AE /* IntroLayer.h */,
@@ -1142,6 +1150,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		21804BFF16FB20C500C453AE /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		21804C0016FB20C500C453AE /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				21804C0116FB20F500C453AE /* MainMenuScene.h */,
+				21804C0216FB20F500C453AE /* MainMenuScene.m */,
+				21804C0416FB214A00C453AE /* MainMenuLayer.h */,
+				21804C0516FB214A00C453AE /* MainMenuLayer.m */,
+			);
+			path = MainMenu;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1367,6 +1393,8 @@
 				21804BF116FB0EB900C453AE /* IntroLayer.mm in Sources */,
 				21804BF416FB0EB900C453AE /* GLES-Render.mm in Sources */,
 				21804BF716FB0EB900C453AE /* PhysicsSprite.mm in Sources */,
+				21804C0316FB20F500C453AE /* MainMenuScene.m in Sources */,
+				21804C0616FB214A00C453AE /* MainMenuLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
