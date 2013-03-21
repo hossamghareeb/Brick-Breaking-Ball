@@ -1,5 +1,5 @@
 //
-//  MainMenuLayer.h
+//  GamePlayScene.h
 //  BrickBreakBall
 //
 //  Created by Hossam on 3/21/13.
@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "GamePlayScene.h"
+#import "GamePlayLayer.h"
 
-@interface MainMenuLayer : CCLayer {
+@interface GamePlayScene : CCScene {
     
 }
+
++(CCScene *)scene;
 
 @end

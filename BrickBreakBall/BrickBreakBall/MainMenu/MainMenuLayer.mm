@@ -30,6 +30,8 @@
         
         CCMenuItem *play1 = [CCMenuItemFont itemWithString:@"Play Easy" block:^(id sender) {
             
+            [[CCDirector sharedDirector] replaceScene:[GamePlayScene scene]];
+            
         }];
         CCMenuItem *play2 = [CCMenuItemFont itemWithString:@"Play Medium" block:^(id sender) {
             
