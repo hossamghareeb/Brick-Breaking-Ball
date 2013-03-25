@@ -39,22 +39,24 @@
         [self setUpWorld];
         [self buildEdges];
         
+        [self buildPaddleAtPosition:CGPointMake(size.width / 2 + 40, size.height / 6)];
         
         
         [self scheduleUpdate];
         
         [self createHUD];
         [self loadPatterns];
-
-    
+        
+        
     }
     return self;
 }
 
 -(void)onEnterTransitionDidFinish
 {
+    [super onEnterTransitionDidFinish];
     [self addNewBall];
-    [self buildPaddleAtPosition:CGPointMake(size.width / 2 + 40, size.height / 6)];
+    
     
 }
 
@@ -96,7 +98,7 @@
             PhysicsSprite *brick = [PhysicsSprite spriteWithSpriteFrameName:brickFrameName];
             CGPoint position = [self getPositionForBrick:brick atRow:rowNo andColumn:i];
             brick.position = position;
-
+            
             brick.tag = BRICK;
             [bricksSheet addChild:brick];
             
@@ -224,7 +226,7 @@
         }
         
     }
-
+    
     //iterate over toBeDestroyed
     vector<b2Body *>::iterator pos2;
     for (pos2 = toBeDestroyed.begin(); pos2 != toBeDestroyed.end(); pos2 ++) {
@@ -237,7 +239,7 @@
         }
         world -> DestroyBody(body);
     }
-
+    
 }
 
 #pragma mark-
@@ -278,7 +280,70 @@
 
 -(void)checkForRandomPowerUpAtPosition:(CGPoint)position
 {
+    int random = arc4random() % 100;
     
+    if (random < 25) { // 25% chance to have a powerUp
+        [self createPowerUpAtPosition:position];
+    }
+}
+-(void)createPowerUpAtPosition:(CGPoint)position
+{
+    int randomPower = arc4random() % 3;
+    int powerID;
+    NSString *frameName;
+    switch (randomPower) {
+        case 0: //expanding
+            powerID = POWER_UP_EXPAND;
+            frameName = @"powerup_expand.png";
+            break;
+        case 1:  //shrinking
+            powerID = POWER_UP_SHRINK;
+            frameName = @"powerup_contract.png";
+            break;
+        case 2: //multiBall
+            powerID = POWER_UP_MULTI_BALL;
+            frameName = @"powerup_multi.png";
+            break;
+        default:
+            break;
+    }
+
+    PhysicsSprite *powerUp = [PhysicsSprite spriteWithSpriteFrameName:frameName];
+    powerUp.position = position;
+    powerUp.tag = powerID;
+    [bricksSheet addChild:powerUp z:20];
+
+
+    b2BodyDef powerBodyDef;
+    powerBodyDef.position.Set(position.x / PTM_RATIO, position.y / PTM_RATIO);
+    powerBodyDef.type = b2_dynamicBody;
+    powerBodyDef.userData = powerUp;
+
+    b2Body *powerBody = world -> CreateBody(&powerBodyDef);
+    [powerUp setPhysicsBody:powerBody];
+    
+    b2PolygonShape powerShape;
+    int num = 8;
+    b2Vec2 verts[] = {
+        b2Vec2(-5.6f / PTM_RATIO, 4.3f / PTM_RATIO),
+        b2Vec2(-5.6f / PTM_RATIO, -4.6f / PTM_RATIO),
+        b2Vec2(-4.3f / PTM_RATIO, -5.8f / PTM_RATIO),
+        b2Vec2(4.5f / PTM_RATIO, -5.8f / PTM_RATIO),
+        b2Vec2(5.5f / PTM_RATIO, -4.8f / PTM_RATIO),
+        b2Vec2(5.5f / PTM_RATIO, 4.4f / PTM_RATIO),
+        b2Vec2(4.5f / PTM_RATIO, 5.6f / PTM_RATIO),
+        b2Vec2(-4.7f / PTM_RATIO, 5.6f / PTM_RATIO)
+    };
+    powerShape.Set(verts, num);
+    
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &powerShape;
+    fixtureDef.isSensor = true;
+    
+    powerBody ->CreateFixture(&fixtureDef);
+    b2Vec2 force(0, -3);
+    powerBody ->ApplyLinearImpulse(force, powerBodyDef.position);
+
 }
 
 #pragma mark-
@@ -311,7 +376,7 @@
     wallBody = world->CreateBody(&wallBodyDef);
     
     //create 4 corners
-
+    
     b2Vec2 bl(0.0f, 0.0f); //bottom_left
     b2Vec2 br(size.width / PTM_RATIO, 0.0f); //bottom_right  //devide on PTM_RATIO to convert from cocos2d location to box2d location
     
