@@ -219,6 +219,24 @@
                     toBeDestroyed.push_back(body1);
                 }
             }
+            
+            else if ((sprite1.tag & POWER_UP_EXPAND  || sprite1.tag & POWER_UP_SHRINK || sprite1.tag & POWER_UP_MULTI_BALL) && sprite2.tag == PADDLE)
+            {
+                if (find(toBeDestroyed.begin(), toBeDestroyed.end(), body1) == toBeDestroyed.end()) {
+                    
+                    toBeDestroyed.push_back(body1);
+                }
+                
+            }
+            else if ((sprite2.tag & POWER_UP_EXPAND  || sprite2.tag & POWER_UP_SHRINK || sprite2.tag & POWER_UP_MULTI_BALL) && sprite1.tag == PADDLE)
+            {
+                if (find(toBeDestroyed.begin(), toBeDestroyed.end(), body2) == toBeDestroyed.end()) {
+                    
+                    toBeDestroyed.push_back(body2);
+                }
+                
+            }
+            
             else if ((sprite1.tag == BALL && sprite2.tag == PADDLE) || (sprite1.tag == PADDLE && sprite2.tag == BALL))
             {
                 [[SimpleAudioEngine sharedEngine] playEffect:SND_PADDLE];
@@ -259,6 +277,21 @@
             [self checkForRandomPowerUpAtPosition:sprite.position];
             [sprite removeFromParentAndCleanup:YES];
             [self increaseScore];
+            break;
+        case POWER_UP_EXPAND:
+            [sprite removeFromParentAndCleanup:YES];
+            [self buildPaddleFixtureLong];
+            paddleTime = 10;
+            break;
+        case POWER_UP_SHRINK:
+            [sprite removeFromParentAndCleanup:YES];
+            [self buildPaddleFixtureShort];
+            paddleTime = 10;
+            
+            break;
+        case POWER_UP_MULTI_BALL:
+            [sprite removeFromParentAndCleanup:YES];
+            
             break;
             
         default:
@@ -450,6 +483,16 @@
     
     [self buildPaddleFixtureWithShape:paddleShape
                    andSpriteFrameName:@"paddle.png"];
+}
+//create the fixture of paddle in long state
+-(void)buildPaddleFixtureLong
+{
+    
+}
+//create the fixture of paddle in short state
+-(void)buildPaddleFixtureShort
+{
+    
 }
 
 

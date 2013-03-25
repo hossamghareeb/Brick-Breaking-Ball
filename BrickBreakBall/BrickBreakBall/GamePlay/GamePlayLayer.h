@@ -39,6 +39,11 @@
     GamePlayHeader *gameInfo;
     NSDictionary *patternsDef;
     float upperBarHeight;
+    
+    
+    ccTime paddleTime;
+    BOOL isPaddleSizeChanged;
+    BOOL shouldStartMultiball;
 }
 
 @end
