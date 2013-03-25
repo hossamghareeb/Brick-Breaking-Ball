@@ -484,17 +484,47 @@
     [self buildPaddleFixtureWithShape:paddleShape
                    andSpriteFrameName:@"paddle.png"];
 }
+
 //create the fixture of paddle in long state
--(void)buildPaddleFixtureLong
-{
+-(void) buildPaddleFixtureLong {
+    // Define the paddle shape
+    b2PolygonShape paddleShape;
+    int num = 6;
+    b2Vec2 verts[] = {
+        b2Vec2(64.0f / PTM_RATIO, -7.5f / PTM_RATIO),
+        b2Vec2(64.0f / PTM_RATIO, -0.5f / PTM_RATIO),
+        b2Vec2(45.0f / PTM_RATIO, 6.5f / PTM_RATIO),
+        b2Vec2(-48.0f / PTM_RATIO, 6.5f / PTM_RATIO),
+        b2Vec2(-65.0f / PTM_RATIO, 0.5f / PTM_RATIO),
+        b2Vec2(-65.0f / PTM_RATIO, -7.5f / PTM_RATIO)
+    };
+    paddleShape.Set(verts, num);
     
+    // Build the fixture
+    [self buildPaddleFixtureWithShape:paddleShape
+                   andSpriteFrameName:@"paddle_wide.png"];
 }
 //create the fixture of paddle in short state
--(void)buildPaddleFixtureShort
-{
-    
-}
 
+-(void) buildPaddleFixtureShort {
+    // Define the paddle shape
+    b2PolygonShape paddleShape;
+    int num = 7;
+    b2Vec2 verts[] = {
+        b2Vec2(15.5f / PTM_RATIO, -7.5f / PTM_RATIO),
+        b2Vec2(15.5f / PTM_RATIO, -0.5f / PTM_RATIO),
+        b2Vec2(11.5f / PTM_RATIO, 5.5f / PTM_RATIO),
+        b2Vec2(10.5f / PTM_RATIO, 6.5f / PTM_RATIO),
+        b2Vec2(-12.5f / PTM_RATIO, 6.5f / PTM_RATIO),
+        b2Vec2(-16.5f / PTM_RATIO, 0.5f / PTM_RATIO),
+        b2Vec2(-16.5f / PTM_RATIO, -7.5f / PTM_RATIO)
+    };
+    paddleShape.Set(verts, num);
+    
+    // Build the fixture
+    [self buildPaddleFixtureWithShape:paddleShape
+                   andSpriteFrameName:@"paddle_short.png"];
+}
 
 -(void)buildPaddleFixtureWithShape:(b2PolygonShape)shape andSpriteFrameName:(NSString *)frameName
 {
