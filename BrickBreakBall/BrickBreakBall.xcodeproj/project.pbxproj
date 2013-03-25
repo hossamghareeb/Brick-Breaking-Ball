@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		217A8A7016FF4E9C00AD0D4C /* BRContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 217A8A6F16FF4E9C00AD0D4C /* BRContactListener.mm */; };
+		217C6486170050B200D3C402 /* GamePlayHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 217C6485170050B200D3C402 /* GamePlayHeader.m */; };
 		218049CD16FB0EB500C453AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218049CC16FB0EB500C453AE /* QuartzCore.framework */; };
 		218049CF16FB0EB500C453AE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218049CE16FB0EB500C453AE /* OpenGLES.framework */; };
 		218049D116FB0EB500C453AE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218049D016FB0EB500C453AE /* OpenAL.framework */; };
@@ -196,6 +198,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		217A8A6E16FF4E9C00AD0D4C /* BRContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListener.h; sourceTree = "<group>"; };
+		217A8A6F16FF4E9C00AD0D4C /* BRContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BRContactListener.mm; sourceTree = "<group>"; };
+		217C6484170050B200D3C402 /* GamePlayHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayHeader.h; sourceTree = "<group>"; };
+		217C6485170050B200D3C402 /* GamePlayHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayHeader.m; sourceTree = "<group>"; };
 		218049C816FB0EB500C453AE /* BrickBreakBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrickBreakBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		218049CC16FB0EB500C453AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		218049CE16FB0EB500C453AE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -596,6 +602,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		217C64821700505900D3C402 /* GamePlayHeader */ = {
+			isa = PBXGroup;
+			children = (
+				217C6484170050B200D3C402 /* GamePlayHeader.h */,
+				217C6485170050B200D3C402 /* GamePlayHeader.m */,
+			);
+			path = GamePlayHeader;
+			sourceTree = "<group>";
+		};
 		218049BD16FB0EB500C453AE = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +650,7 @@
 				21804C1416FB311300C453AE /* GameConstants.h */,
 				21804BE916FB0EB900C453AE /* AppDelegate.h */,
 				21804BEA16FB0EB900C453AE /* AppDelegate.mm */,
+				217C64821700505900D3C402 /* GamePlayHeader */,
 				21804C1216FB2A1F00C453AE /* ContactListener */,
 				21804C0716FB230300C453AE /* GamePlay */,
 				21804BFF16FB20C500C453AE /* Intro */,
@@ -1210,6 +1226,8 @@
 		21804C1216FB2A1F00C453AE /* ContactListener */ = {
 			isa = PBXGroup;
 			children = (
+				217A8A6E16FF4E9C00AD0D4C /* BRContactListener.h */,
+				217A8A6F16FF4E9C00AD0D4C /* BRContactListener.mm */,
 			);
 			path = ContactListener;
 			sourceTree = "<group>";
@@ -1473,6 +1491,8 @@
 				21804C0616FB214A00C453AE /* MainMenuLayer.mm in Sources */,
 				21804C0A16FB232E00C453AE /* GamePlayScene.mm in Sources */,
 				21804C0D16FB234B00C453AE /* GamePlayLayer.mm in Sources */,
+				217A8A7016FF4E9C00AD0D4C /* BRContactListener.mm in Sources */,
+				217C6486170050B200D3C402 /* GamePlayHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

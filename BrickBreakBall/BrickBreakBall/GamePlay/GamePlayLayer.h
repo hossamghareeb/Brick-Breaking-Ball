@@ -9,16 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "PhysicsSprite.h"
+#import "BRContactListener.h"
+#import "SimpleAudioEngine.h"
 
-@interface GamePlayLayer : CCLayer {
+@interface GamePlayLayer : CCLayer <CCTargetedTouchDelegate>{
     
     CGSize size;
+    BOOL isGameOver;
     
     b2World *world;
     b2Body *wallBody;
+    b2Body *paddleBody;
+    b2Fixture *paddleFixture;
+    
+    b2MouseJoint *mouseJoint;
+    
     b2Fixture *bottomGutter;
     
     CCSpriteBatchNode *bricksSheet;
+    
+    BRContactListener *contactListener;
+    
+    PhysicsSprite *playerPaddle;
     
     float upperBarHeight;
 }

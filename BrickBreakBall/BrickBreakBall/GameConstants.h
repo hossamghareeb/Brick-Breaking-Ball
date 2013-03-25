@@ -12,6 +12,12 @@
 
 #define PTM_RATIO 32
 
+// Audio definitions
+#define SND_BUTTON @"button.caf"
+#define SND_PADDLE @"latch2.caf"
+#define SND_BRICK @"latch1.caf"
+#define SND_LOSEBALL @"crunch.caf"
+
 
 typedef enum {
     
