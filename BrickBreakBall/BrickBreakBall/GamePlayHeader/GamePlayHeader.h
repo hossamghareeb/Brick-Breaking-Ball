@@ -9,7 +9,7 @@
 #import "cocos2d.h"
 #import "GamePlayLayer.h"
 #import <Foundation/Foundation.h>
-
+#import "Utilities.h"
 @interface GamePlayHeader : CCNode
 
 
@@ -25,4 +25,5 @@
 -(void)loseLife;
 -(void)addToScore:(int)newScore;
 -(void)resetGame;
+-(NSDictionary *)getDictionaryFromPlist:(NSString *)fileName;
 @end

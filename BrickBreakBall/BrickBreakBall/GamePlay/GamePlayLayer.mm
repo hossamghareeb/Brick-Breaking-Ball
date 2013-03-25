@@ -7,7 +7,7 @@
 //
 
 #import "GamePlayLayer.h"
-
+#import "GamePlayHeader.h"
 
 @implementation GamePlayLayer
 
@@ -16,11 +16,11 @@
     if ((self = [super init])) {
         
         self.isTouchEnabled = YES;
-        
+        gameInfo = [GamePlayHeader sharedHeader];
         [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
         
         size = [[CCDirector sharedDirector] winSize];
-        upperBarHeight = 60.0f;
+        upperBarHeight = 75.0f;
         //load sprite sheet
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"bricksheet.plist"];
         bricksSheet = [CCSpriteBatchNode batchNodeWithFile:@"bricksheet.png" capacity:100];
@@ -43,7 +43,8 @@
         
         [self schedule:@selector(update:)];
         
-        
+        [self createHUD];
+        [self loadPatterns];
 
     
     }
@@ -53,8 +54,84 @@
 -(void)onEnterTransitionDidFinish
 {
     [self addNewBall];
-    [self buildPaddleAtPosition:CGPointMake(size.width / 2 + 40, size.height / 4)];
+    [self buildPaddleAtPosition:CGPointMake(size.width / 2 + 40, size.height / 6)];
     
+}
+
+-(void)createHUD
+{
+    hud = [HUDLayer node];
+    hud.position = ccp(size.width / 2, size.height - upperBarHeight / 2);
+    [self addChild:hud];
+}
+-(void)loadPatterns
+{
+    int allPatterns = 4;
+    int patternToDisplay = (gameInfo.currentLevel - 1) % allPatterns;
+    patternsDef = [gameInfo getDictionaryFromPlist:@"patterns"];
+    [self buildBricksWithPattern:patternToDisplay];
+}
+
+-(void)buildBricksWithPattern:(int)pattern
+{
+    NSString *patternID = [NSString stringWithFormat:@"P%d", pattern];
+    //array of strings of patterns (rows)
+    NSArray *patterns = [patternsDef objectForKey:patternID];
+    int rowNo = 1;
+    for (NSString *rowString in patterns) {
+        
+        [self buildBricksRowWithString:rowString andRowNumber:rowNo];
+        rowNo++;
+    }
+}
+
+-(void)buildBricksRowWithString:(NSString *)rowString andRowNumber:(int)rowNo
+{
+    //loop over digits
+    for (int i = 0; i < rowString.length; i++) {
+        NSRange range = NSMakeRange(i, 1);
+        int brickID = [[rowString substringWithRange:range] intValue];
+        if (brickID > 0) {
+            
+            NSString *brickFrameName = [NSString stringWithFormat:@"brick%d.png", brickID];
+            PhysicsSprite *brick = [PhysicsSprite spriteWithSpriteFrameName:brickFrameName];
+            CGPoint position = [self getPositionForBrick:brick atRow:rowNo andColumn:i];
+            brick.position = position;
+
+            brick.tag = BRICK;
+            [bricksSheet addChild:brick];
+            
+            b2BodyDef bodyDef;
+            bodyDef.position.Set(position.x / PTM_RATIO, position.y / PTM_RATIO);
+            bodyDef.type = b2_staticBody;
+            bodyDef.userData = brick;
+            
+            b2Body *brickBody = world -> CreateBody(&bodyDef);
+            [brick setPhysicsBody:brickBody];
+            
+            b2PolygonShape brickShape;
+            brickShape.SetAsBox(brick.contentSize.width / PTM_RATIO, brick.contentSize.height / PTM_RATIO);
+            
+            b2FixtureDef fixtureDef;
+            fixtureDef.shape = &brickShape;
+            fixtureDef.friction = 0.0f;
+            fixtureDef.restitution = 1.0f;
+            fixtureDef.density = 200.0f;
+            
+            brickBody -> CreateFixture(&fixtureDef);
+            
+        }
+        
+        
+    }
+}
+
+-(CGPoint)getPositionForBrick:(PhysicsSprite *)brick atRow:(int)row andColumn:(int)col
+{
+    float padding = 1;
+    row--;
+    return ccp(10 + brick.contentSize.width * col + padding * col + brick.contentSize.width / 2,
+               size.height / 2 + brick.contentSize.height * row + padding * row + brick.contentSize.height / 2);
 }
 
 -(void)update:(ccTime)dt

@@ -11,6 +11,8 @@
 #import "PhysicsSprite.h"
 #import "BRContactListener.h"
 #import "SimpleAudioEngine.h"
+#import "HUDLayer.h"
+
 
 @interface GamePlayLayer : CCLayer <CCTargetedTouchDelegate>{
     
@@ -24,6 +26,8 @@
     
     b2MouseJoint *mouseJoint;
     
+    HUDLayer *hud;
+    
     b2Fixture *bottomGutter;
     
     CCSpriteBatchNode *bricksSheet;
@@ -32,6 +36,8 @@
     
     PhysicsSprite *playerPaddle;
     
+    GamePlayHeader *gameInfo;
+    NSDictionary *patternsDef;
     float upperBarHeight;
 }
 

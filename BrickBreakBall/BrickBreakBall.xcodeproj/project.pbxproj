@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		217A8A7016FF4E9C00AD0D4C /* BRContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 217A8A6F16FF4E9C00AD0D4C /* BRContactListener.mm */; };
-		217C6486170050B200D3C402 /* GamePlayHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 217C6485170050B200D3C402 /* GamePlayHeader.m */; };
+		217C64891700568D00D3C402 /* GamePlayHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 217C64881700568D00D3C402 /* GamePlayHeader.mm */; };
+		217C648D1700617100D3C402 /* HUDLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 217C648C1700617100D3C402 /* HUDLayer.mm */; };
+		217C6497170072D100D3C402 /* patterns.plist in Resources */ = {isa = PBXBuildFile; fileRef = 217C6496170072D100D3C402 /* patterns.plist */; };
 		218049CD16FB0EB500C453AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218049CC16FB0EB500C453AE /* QuartzCore.framework */; };
 		218049CF16FB0EB500C453AE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218049CE16FB0EB500C453AE /* OpenGLES.framework */; };
 		218049D116FB0EB500C453AE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218049D016FB0EB500C453AE /* OpenAL.framework */; };
@@ -201,7 +203,11 @@
 		217A8A6E16FF4E9C00AD0D4C /* BRContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListener.h; sourceTree = "<group>"; };
 		217A8A6F16FF4E9C00AD0D4C /* BRContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BRContactListener.mm; sourceTree = "<group>"; };
 		217C6484170050B200D3C402 /* GamePlayHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayHeader.h; sourceTree = "<group>"; };
-		217C6485170050B200D3C402 /* GamePlayHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayHeader.m; sourceTree = "<group>"; };
+		217C64881700568D00D3C402 /* GamePlayHeader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GamePlayHeader.mm; sourceTree = "<group>"; };
+		217C648A1700571E00D3C402 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		217C648B1700617100D3C402 /* HUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDLayer.h; sourceTree = "<group>"; };
+		217C648C1700617100D3C402 /* HUDLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HUDLayer.mm; sourceTree = "<group>"; };
+		217C6496170072D100D3C402 /* patterns.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = patterns.plist; sourceTree = "<group>"; };
 		218049C816FB0EB500C453AE /* BrickBreakBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrickBreakBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		218049CC16FB0EB500C453AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		218049CE16FB0EB500C453AE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -606,7 +612,9 @@
 			isa = PBXGroup;
 			children = (
 				217C6484170050B200D3C402 /* GamePlayHeader.h */,
-				217C6485170050B200D3C402 /* GamePlayHeader.m */,
+				217C64881700568D00D3C402 /* GamePlayHeader.mm */,
+				217C648B1700617100D3C402 /* HUDLayer.h */,
+				217C648C1700617100D3C402 /* HUDLayer.mm */,
 			);
 			path = GamePlayHeader;
 			sourceTree = "<group>";
@@ -648,6 +656,7 @@
 			isa = PBXGroup;
 			children = (
 				21804C1416FB311300C453AE /* GameConstants.h */,
+				217C648A1700571E00D3C402 /* Utilities.h */,
 				21804BE916FB0EB900C453AE /* AppDelegate.h */,
 				21804BEA16FB0EB900C453AE /* AppDelegate.mm */,
 				217C64821700505900D3C402 /* GamePlayHeader */,
@@ -1246,6 +1255,7 @@
 		21804C1A16FB38AA00C453AE /* spritesheets */ = {
 			isa = PBXGroup;
 			children = (
+				217C6496170072D100D3C402 /* patterns.plist */,
 				21804C1B16FB38AA00C453AE /* bricksheet-hd.plist */,
 				21804C1C16FB38AA00C453AE /* bricksheet-hd.png */,
 				21804C1D16FB38AA00C453AE /* bricksheet.plist */,
@@ -1326,6 +1336,7 @@
 				21804C2416FB38AA00C453AE /* bricksheet-hd.png in Resources */,
 				21804C2516FB38AA00C453AE /* bricksheet.plist in Resources */,
 				21804C2616FB38AA00C453AE /* bricksheet.png in Resources */,
+				217C6497170072D100D3C402 /* patterns.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1492,7 +1503,8 @@
 				21804C0A16FB232E00C453AE /* GamePlayScene.mm in Sources */,
 				21804C0D16FB234B00C453AE /* GamePlayLayer.mm in Sources */,
 				217A8A7016FF4E9C00AD0D4C /* BRContactListener.mm in Sources */,
-				217C6486170050B200D3C402 /* GamePlayHeader.m in Sources */,
+				217C64891700568D00D3C402 /* GamePlayHeader.mm in Sources */,
+				217C648D1700617100D3C402 /* HUDLayer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
