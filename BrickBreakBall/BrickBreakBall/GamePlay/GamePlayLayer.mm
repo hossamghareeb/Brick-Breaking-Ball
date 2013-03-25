@@ -41,7 +41,7 @@
         
         
         
-        [self schedule:@selector(update:)];
+        [self scheduleUpdate];
         
         [self createHUD];
         [self loadPatterns];
@@ -158,7 +158,6 @@
             PhysicsSprite *physicsSprite = (PhysicsSprite *) b->GetUserData();
             if (physicsSprite.tag == BALL) {
                 
-                
                 b2Vec2 velocity = b ->GetLinearVelocity();
                 float32 speed = velocity.Length();
                 
@@ -218,6 +217,10 @@
                     toBeDestroyed.push_back(body1);
                 }
             }
+            else if ((sprite1.tag == BALL && sprite2.tag == PADDLE) || (sprite1.tag == PADDLE && sprite2.tag == BALL))
+            {
+                [[SimpleAudioEngine sharedEngine] playEffect:SND_PADDLE];
+            }
         }
         
     }
@@ -247,16 +250,35 @@
         case BALL:
             [[SimpleAudioEngine sharedEngine] playEffect:SND_LOSEBALL];
             [sprite removeFromParentAndCleanup:YES];
-            //lose life
+            [self loseLife];
             break;
         case BRICK:
             [[SimpleAudioEngine sharedEngine] playEffect:SND_BRICK];
+            [self checkForRandomPowerUpAtPosition:sprite.position];
             [sprite removeFromParentAndCleanup:YES];
+            [self increaseScore];
             break;
             
         default:
             break;
     }
+}
+
+-(void)loseLife
+{
+    [hud loseLife];
+}
+-(void)increaseScore
+{
+    [hud addScore:1];
+}
+#pragma mark-
+#pragma mark PowerUps
+#pragma mark-
+
+-(void)checkForRandomPowerUpAtPosition:(CGPoint)position
+{
+    
 }
 
 #pragma mark-
