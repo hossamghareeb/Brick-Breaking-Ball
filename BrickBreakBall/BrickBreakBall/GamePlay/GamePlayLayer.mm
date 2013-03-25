@@ -11,6 +11,9 @@
 
 @implementation GamePlayLayer
 
+#pragma mark-
+#pragma mark LIFE CYCLE METHODS
+#pragma mark-
 -(id)init
 {
     if ((self = [super init])) {
@@ -36,10 +39,7 @@
         [self setUpWorld];
         [self buildEdges];
         
-        //contact listener
         
-        contactListener = new BRContactListener();
-        world ->SetContactListener(contactListener);
         
         [self schedule:@selector(update:)];
         
@@ -58,12 +58,11 @@
     
 }
 
--(void)createHUD
-{
-    hud = [HUDLayer node];
-    hud.position = ccp(size.width / 2, size.height - upperBarHeight / 2);
-    [self addChild:hud];
-}
+#pragma mark-
+#pragma mark CREATING THE BRICKS PATTERN
+#pragma mark-
+
+
 -(void)loadPatterns
 {
     int allPatterns = 4;
@@ -134,6 +133,21 @@
                size.height / 2 + brick.contentSize.height * row + padding * row + brick.contentSize.height / 2);
 }
 
+#pragma mark-
+#pragma mark BUILD HUD
+#pragma mark-
+
+-(void)createHUD
+{
+    hud = [HUDLayer node];
+    hud.position = ccp(size.width / 2, size.height - upperBarHeight / 2);
+    [self addChild:hud];
+}
+
+#pragma mark-
+#pragma mark UPDATE METHOD
+#pragma mark-
+
 -(void)update:(ccTime)dt
 {
     world->Step(dt, 10, 10);
@@ -180,8 +194,6 @@
             if (find(toBeDestroyed.begin(), toBeDestroyed.end(), body1) == toBeDestroyed.end()) {
                 
                 toBeDestroyed.push_back(body1);
-                
-                NSLog(@"collision");
             }
         }
         else if (sprite2.tag == BALL && contact.fixtureA == bottomGutter)
@@ -189,12 +201,28 @@
             if (find(toBeDestroyed.begin(), toBeDestroyed.end(), body2) == toBeDestroyed.end()) {
                 
                 toBeDestroyed.push_back(body2);
-                NSLog(@"collision");
             }
         }
-        //iterate over toBeDestroyed
+        else if (sprite1 != NULL && sprite2 != NULL)
+        {
+            if (sprite1.tag == BALL && sprite2.tag == BRICK) {
+                if (find(toBeDestroyed.begin(), toBeDestroyed.end(), body2) == toBeDestroyed.end()) {
+                    
+                    toBeDestroyed.push_back(body2);
+                }
+            }
+            else if (sprite1.tag == BRICK && sprite2.tag == BALL)
+            {
+                if (find(toBeDestroyed.begin(), toBeDestroyed.end(), body1) == toBeDestroyed.end()) {
+                    
+                    toBeDestroyed.push_back(body1);
+                }
+            }
+        }
+        
     }
-    
+
+    //iterate over toBeDestroyed
     vector<b2Body *>::iterator pos2;
     for (pos2 = toBeDestroyed.begin(); pos2 != toBeDestroyed.end(); pos2 ++) {
         b2Body *body = *pos2;
@@ -209,6 +237,9 @@
 
 }
 
+#pragma mark-
+#pragma mark DESTROY SPRITE(BALL IN LOSE, BRICK IN COLLISION)
+#pragma mark-
 
 -(void)destroySprite:(PhysicsSprite *)sprite
 {
@@ -218,12 +249,19 @@
             [sprite removeFromParentAndCleanup:YES];
             //lose life
             break;
+        case BRICK:
+            [[SimpleAudioEngine sharedEngine] playEffect:SND_BRICK];
+            [sprite removeFromParentAndCleanup:YES];
+            break;
             
         default:
             break;
     }
 }
 
+#pragma mark-
+#pragma mark BUILD THE WORLD AND EDGES
+#pragma mark-
 
 
 -(void)setUpWorld
@@ -236,6 +274,10 @@
     world->SetContinuousPhysics(true);
     
     //creating the contact listener here
+    //contact listener
+    
+    contactListener = new BRContactListener();
+    world ->SetContactListener(contactListener);
 }
 
 
@@ -268,6 +310,10 @@
     bottomGutter = wallBody->CreateFixture(&bottomEdge, 0); //we have the b2fixture to be used in collison with ball (lose)
     
 }
+
+#pragma mark-
+#pragma mark CREATING THE PADDLE
+#pragma mark-
 
 -(void)buildPaddleAtPosition:(CGPoint)position
 {
@@ -337,6 +383,10 @@
     [playerPaddle setDisplayFrame:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:frameName]];
 }
 
+#pragma mark-
+#pragma mark CREATING THE BALL
+#pragma mark-
+
 -(void)addNewBall
 {
     //give kick down and right
@@ -374,6 +424,9 @@
     
 }
 
+#pragma mark-
+#pragma mark TOUCH DELEGATE METHODS
+#pragma mark-
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     
